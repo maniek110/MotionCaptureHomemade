@@ -28,16 +28,16 @@ class poseDetector():
             img.flags.writeable = False
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             results = pose.process(img)
-
             # Draw the pose annotation on the image.
             img.flags.writeable = True
             img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-            self.mp_drawing.draw_landmarks(
-                img,
-                results.pose_landmarks,
-                self.mp_pose.POSE_CONNECTIONS,
-                landmark_drawing_spec=self.mp_drawing_styles.get_default_pose_landmarks_style())
-            return img
+            if isDrawing:
+                self.mp_drawing.draw_landmarks(
+                    img,
+                    results.pose_landmarks,
+                    self.mp_pose.POSE_CONNECTIONS,
+                    landmark_drawing_spec=self.mp_drawing_styles.get_default_pose_landmarks_style())
+            return img,results
 
 
 
